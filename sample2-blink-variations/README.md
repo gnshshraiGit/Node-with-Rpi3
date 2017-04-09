@@ -15,7 +15,7 @@ STEP 2 :- Getting the software ready<br/>
 
 STEP 3 :- Running this sample <br/>
                 1. Clone this sample at your local drive <br/>
-                2. Go inside sample1-blink-LED<br/>
+                2. Go inside sample2-blink-variations folder <br/>
                 3. Run "npm install"<br/>
                 4. Run this sample "node app.js" <br/>
 
