@@ -1,6 +1,6 @@
 STEP 1 :- Getting the hardware ready 
 		1. You need a RPI3 board
-		2. Jumber wires to connect RPI3 board with breadboard .
+		2. Jumper wires to connect RPI3 board with breadboard .
 		3. 3 LEDs Red Green and Blue color .
 		4. 3 Resistors of about 550 ohms .
 		5. Connections
