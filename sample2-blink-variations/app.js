@@ -71,7 +71,6 @@ var properties = [
     {
       name: 'Variations', 
       validator: /^[1-4]+$/,
-      type: 'integer',
       warning: 'Variation must be only numbers between 1 to 4'
     }];
 
