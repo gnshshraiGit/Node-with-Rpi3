@@ -1,9 +1,9 @@
-STEP 1 :- Getting the hardware ready 
-		1. You need a RPI3 board
-		2. Jumper wires to connect RPI3 board with breadboard .
-		3. 3 LEDs Red Green and Blue color .
-		4. 3 Resistors of about 550 ohms .
-		5. Connections
+STEP 1 :- Getting the hardware ready <br/>
+		1. You need a RPI3 board <br/>
+		2. Jumper wires to connect RPI3 board with breadboard _.<br/>
+		3. 3 LEDs Red Green and Blue color _.<br/>
+		4. 3 Resistors of about 550 ohms _.<br/>
+		5. Connections<br/>
 			A. Connect the shorter leg (Cathode) of all the LEDs to a common ground taken from GPIO pin 5 through the resistor used for each connection .
 			B. Connect the longer leg (anode) of Red LED with GPIO pin 2 , Blue LED with GPIO pin 3 and Green LED with GPIO pin 4 .
 
