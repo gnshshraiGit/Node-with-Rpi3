@@ -1,0 +1,15 @@
+{
+  "name": "sample1-blink-led",
+  "version": "1.0.0",
+  "description": "LED onoff sample1",
+  "main": "app.js",
+  "dependencies": {
+    "onoff": "^1.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ganesh",
+  "license": "ISC"
+}
