@@ -1,0 +1,16 @@
+{
+  "name": "sample2-blink-variations",
+  "version": "1.0.0",
+  "description": "LED onoff sample2",
+  "main": "app.js",
+  "dependencies": {
+    "onoff": "^1.1.2",
+    "prompt": "^1.0.0"	
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ganesh",
+  "license": "ISC"
+}
