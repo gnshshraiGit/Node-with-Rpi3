@@ -83,7 +83,6 @@ http.createServer(function (request, response) {
    {
     case '/red/on': 
        ledColors.red.on();
-       response.writeHead(200);
        break;
     case '/white/on': 
        ledColors.white.on();

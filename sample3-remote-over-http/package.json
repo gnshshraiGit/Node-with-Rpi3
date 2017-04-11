@@ -1,11 +1,10 @@
 {
-  "name": "sample2-blink-variations",
+  "name": "sample3-remote-over-http",
   "version": "1.0.0",
-  "description": "LED onoff sample2",
+  "description": "LED onoff sample3",
   "main": "app.js",
   "dependencies": {
-    "onoff": "^1.1.2",
-    "prompt": "^1.0.0"	
+    "onoff": "^1.1.2"	
   },
   "devDependencies": {},
   "scripts": {
