@@ -11,7 +11,8 @@ STEP 2 :- Getting the software ready<br/>
                 1. I am using Raspbian 4.4 for this sample , you may use any OS as long as it supports Nodejs .<br/>
                 2. You need compatible Nodejs installed i am using Nodejs version 4.8.1 .<br/>
                 3. You also need a compatible version of NPM installed, I am using NPM version 2.15.11 .<br/>
-                4. Now you can choose to run this sample as sudo which is not a good idea or you may install "wiringpi" using apt-get to run it without su privileges .<br/> 
+                4. Now you can choose to run this sample as sudo which is not a good idea or you may install gpio-admin to run  it without su privileges <br/> 
+		ref:- http://www.robert-drummond.com/2013/06/06/raspberry-pi-gpio-inputoutput-in-javascript/<br/> 
 
 STEP 3 :- Running this sample <br/>
                 1. Clone this sample at your local drive <br/>
