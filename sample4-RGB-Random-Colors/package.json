@@ -1,7 +1,7 @@
 {
   "name": "sample2-blink-variations",
   "version": "1.0.0",
-  "description": "LED onoff sample2",
+  "description": "RGB LED onoff sample4",
   "main": "app.js",
   "dependencies": {
     "onoff": "^1.1.2",
