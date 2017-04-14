@@ -1,5 +1,5 @@
 {
-  "name": "sample2-blink-variations",
+  "name": "sample4-RGB-Random-Colors",
   "version": "1.0.0",
   "description": "RGB LED onoff sample4",
   "main": "app.js",
