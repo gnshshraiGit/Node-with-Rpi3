@@ -16,7 +16,7 @@ STEP 2 :- Getting the software ready<br/>
 
 STEP 3 :- Running this sample <br/>
                 1. Clone this sample at your local drive <br/>
-                2. Go inside sample2-blink-variations folder <br/>
+                2. Go inside sample3-remote-over-http folder <br/>
                 3. Run "npm install"<br/>
                 4. Run this sample "node app.js" and see the server listening at port 9615 <br/>
                 5. Open your browser at http://127.0.0.1:9615 <br/>
