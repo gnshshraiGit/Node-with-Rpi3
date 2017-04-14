@@ -36,9 +36,9 @@ exports.ledOnOff = function (gpioPinNum,LedColor){
                 wpi.softToneCreate(greenPin);
                 wpi.softToneCreate(bluePin);
                 // setting default values , these can be changed to produce various effects as desired 
-                wpi.softToneWrite(redPin,1000);
-                wpi.softToneWrite(greenPin,1000);
-                wpi.softToneWrite(bluePin,1000);
+                wpi.softToneWrite(redPin,3000);
+                wpi.softToneWrite(greenPin,3000);
+                wpi.softToneWrite(bluePin,3000);
                 wpi.softPwmCreate(redPin, 0, 255);
                 wpi.softPwmCreate(greenPin, 0, 255);
                 wpi.softPwmCreate(bluePin, 0, 255);
