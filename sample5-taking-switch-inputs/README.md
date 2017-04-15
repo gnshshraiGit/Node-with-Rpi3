@@ -22,6 +22,6 @@ STEP 3 :- Running this sample <br/>
                 3. Run "npm install"<br/>
                 4. Run this sample "node app.js" <br/>
 
-Result:- This example is same as sample2 , except that we will be taking inputs from tactile switch instead of the keyboard inputs , change in variations will observed on button push everytime
+Result:- This example is same as sample2 , except that we will be taking inputs from tactile switch instead of the keyboard inputs , change in variations will be observed on button push everytime
 
 Feel free to change your local copy and play as you like . Enjoy Blinking!!. <br/>
