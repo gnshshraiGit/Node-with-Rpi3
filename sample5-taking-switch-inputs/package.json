@@ -1,0 +1,16 @@
+{
+  "name": "sample5-taking-switch-inputs",
+  "version": "1.0.0",
+  "description": "taking switch inputs sample5",
+  "main": "app.js",
+  "dependencies": {
+    "onoff": "^1.1.2",
+    "wiringpi-node": "^2.4.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ganesh",
+  "license": "ISC"
+}
