@@ -8,7 +8,7 @@ blue : new ledOnOff(3,'BLUE'),
 green : new ledOnOff(4, 'GREEN'),
 yellow : new ledOnOff(14,'YELLOW'),
 white : new ledOnOff(15,'WHITE'),
-switch : new ledOnOff(0).getInGpio(17),//getInGpio
+switch : new ledOnOff(0).getInGpio(17),
 reset: function(){
     this.red.off();
     this.blue.off();
