@@ -1,0 +1,83 @@
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="  crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+<script src="scripts/lz-string.js"></script>
+<script>
+    var socket = io.connect();
+    var currentLEDstate = { 'red': 1, 'blue': 1, 'green': 1, 'yellow': 1, 'white': 1 }; //default values
+    function insertStreamer(outerdivid, roomname) {
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+        //absolutely position video on screen
+        $("#" + outerdivid).append($("<video id = 'streamingvideo'></video>"));
+        $("#" + outerdivid).append($("<canvas width = '750px' height = '400px' id = 'fakecanvas' hidden></canvas>"));
+        var video = document.querySelector('video');
+        var canvas = document.getElementById('fakecanvas')
+        $('#video').css({ position: 'absolute' });
+        //use browsers getusermedia to get user media
+        if (navigator.getUserMedia) {
+            console.log('got User Media');
+            navigator.getUserMedia(
+                {
+                    video: true,
+                    audio: false
+                },
+                function (stream) {
+                    socket.emit('register', { roomname: roomname, peerRole: 'server' });
+                    var v = document.getElementById('streamingvideo');
+                    var url = window.URL || window.webkitURL;
+                    v.src = url ? url.createObjectURL(stream) : stream;
+                    v.play();
+                },
+                function (error) { console.log(error); }
+            );
+        }
+        else {
+            alert('Sorry, the browser you are using doesn\'t support getUserMedia');
+            return;
+        }
+
+        var imageType = "image/jpeg";
+        var imageArguments = 0.7;
+        var draw = function () {
+            // Provide default values
+            canvas.getContext('2d').drawImage(video, 0, 0, 750, 460);
+            var string = LZString.compressToEncodedURIComponent(canvas.toDataURL(imageType, imageArguments));
+            socket.emit('picdata', { data: string, roomname: roomname });
+        }
+        setInterval(draw, 500);
+
+    }
+
+    function insertClient(outerdivid, roomname) {
+        socket.emit('register', { roomname: roomname, peerRole: 'client' });
+        //absolutely position video on screen
+        $("#" + outerdivid).append($("<canvas id = 'streamedto' width ='750px' height = '400px'></canvas>"));
+        var ctx = document.getElementById('streamedto').getContext('2d')
+        socket.on('broadcast', function (data) {
+            drawto(data.data, ctx);
+        })
+        socket.on('updateLedStatus', function (data) {
+            console.log(data);
+        });
+        //LED button Controllers
+        $("[id$='LED']").click(function () {
+            var thisColor = $(this).attr('color');
+            var chngState = currentLEDstate[thisColor] === 1 ? 'off' : 'on';
+            socket.emit('changeLedState', { appName: roomname, LED: thisColor, state: chngState });
+        });
+        $('[id^=ledVariation]').click(function () {
+            var variation = $(this).attr('val');
+            socket.emit('changeLedVariation', { appName: roomname, variation: variation });
+        });
+        //LED button Controllers End
+        function drawto(url, ctx) {
+            //console.log(url);
+            var img = new Image();
+            img.setAttribute('crossOrigin', 'anonymous');
+            img.onload = function () {
+                ctx.drawImage(img, 0, 0); // Or at whatever offset you like
+            };
+            img.src = LZString.decompressFromEncodedURIComponent(url);
+
+        }
+    }
+</script>
