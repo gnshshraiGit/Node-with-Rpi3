@@ -1,9 +1,0 @@
-{
-  "name": "sample6-3-rdns",
-  "version": "0.0.0",
-  "description": "sample6-3-RDNS",
-  "main": "server.js",
-  "author": {
-    "name": "Ganesh"
-  }
-}
