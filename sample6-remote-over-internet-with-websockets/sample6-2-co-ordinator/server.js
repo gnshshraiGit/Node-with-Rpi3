@@ -9,7 +9,7 @@ var port = process.env.port || 1337;
 var app = express();
 var IPMaps = {};
 
-var rDnsServer = 'http://rdns-rpihome.southcentralus.cloudapp.azure.com:1337/update'; 
+var rDnsServer = 'http://rpirdns.azurewebsites.net/update'; 
 var internetListeningPort = 25000;
 var appName = 'trixie';
 var formatedRDnsUrl = rDnsServer + '?app=' + appName + '&port=' + internetListeningPort;
