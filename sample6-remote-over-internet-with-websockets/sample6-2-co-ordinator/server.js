@@ -9,21 +9,21 @@ var port = process.env.port || 1337;
 var app = express();
 var IPMaps = {};
 
-//var rDnsServer = 'http://xxxxxxxxxxxx'
-//var internetListeningPort = 25000;
-//var appName = 'trixie';
-//var formatedRDnsUrl = rDnsServer + '?app=' + appName + '&port=' + internetListeningPort;
+var rDnsServer = 'http://rpirdns.azurewebsites.net/update'; 
+var internetListeningPort = 25000;
+var appName = 'trixie';
+var formatedRDnsUrl = rDnsServer + '?app=' + appName + '&port=' + internetListeningPort;
 
-//setInterval(function () {
-//    request(formatedRDnsUrl, function (error, response, body) {
-//        if (!error && response.statusCode == 200) {
-//            console.log('Success: Data = ' + body);
-//        }
-//        else {
-//            console.log('Failure: Error = ' + error);
-//        }
-//    });
-//}, 1000 * 60 * 2);
+setInterval(function () {
+    request(formatedRDnsUrl, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log('Success: Data = ' + body);
+        }
+        else {
+            console.log('Failure: Error = ' + error);
+        }
+    });
+}, 1000 * 60 * 2);
 
 app.use(express.static(__dirname + '/public'));
 
