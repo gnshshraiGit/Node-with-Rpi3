@@ -8,6 +8,7 @@
 <script src="scripts/lz-string.js"></script>
 <script>
     var socket = io.connect();
+    var currentLEDstate = { 'red': false, 'green': false, 'blue': false, 'yellow': false, 'white': false };
     function insertStreamer(outerdivid, roomname) {
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
         //absolutely position video on screen
@@ -50,7 +51,6 @@
         setInterval(draw, 500);
 
     }
-    var currentLEDstate = { 'red': false, 'green': false, 'blue': false, 'yellow': false, 'white': false };
     function insertClient(outerdivid, roomname) {
         socket.emit('register', { roomname: roomname, peerRole: 'client' });
         //absolutely position video on screen
@@ -62,12 +62,33 @@
         socket.on('updateLedStatus', function (data) {
             data = JSON.parse(data);
             console.log(data);
-            $('#statusTable').find('tbody').html('');
+            r.setValue(data.rgbCode[0], false, false);
+            g.setValue(data.rgbCode[1], false, false);
+            b.setValue(data.rgbCode[2], false, false);
+            RGBChange(false);
             $.each(data, function (val,item) {
                 currentLEDstate[val] = item.state;
             });
         });
         //LED button Controllers
+        var RGBChange = function (socketEmit) {
+            socketEmit = typeof socketEmit !== 'undefined' ? socketEmit : true;
+            $('#RGB').css('background', 'rgb(' + r.getValue() + ',' + g.getValue() + ',' + b.getValue() + ')');
+            $('#redVal').html(r.getValue());
+            $('#greenVal').html(g.getValue());
+            $('#blueVal').html(b.getValue());
+            socketEmit ? socket.emit('setRGB', { appName: roomname, R: r.getValue(), B: b.getValue(), G: g.getValue() }) : false;
+        };
+        var r = $('#R').slider()
+                .on('slideStop', RGBChange)
+                .data('slider');
+        var g = $('#G').slider()
+                .on('slideStop', RGBChange)
+                .data('slider');
+        var b = $('#B').slider()
+                .on('slideStop', RGBChange)
+                .data('slider');
+        
         $("[id$='LED']").click(function () {
             var thisColor = $(this).attr('color');
             var chngState = currentLEDstate[thisColor] === true ? 'off' : 'on';
@@ -77,21 +98,7 @@
             var variation = $(this).attr('val');
             socket.emit('changeLedVariation', { appName: roomname, variation: variation });
         });
-        $(function () {
-            var RGBChange = function () {
-                $('#RGB').css('background', 'rgb(' + r.getValue() + ',' + g.getValue() + ',' + b.getValue() + ')');
-                socket.emit('setRGB', {appName: roomname, R: r.getValue(), B: b.getValue(), G: g.getValue() });
-            };
-            var r = $('#R').slider()
-                    .on('slideStop', RGBChange)
-                    .data('slider');
-            var g = $('#G').slider()
-                    .on('slideStop', RGBChange)
-                    .data('slider');
-            var b = $('#B').slider()
-                    .on('slideStop', RGBChange)
-                    .data('slider');
-        });
+        
         //LED button Controllers End
         function drawto(url, ctx) {
             //console.log(url);
