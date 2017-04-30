@@ -9,12 +9,24 @@ blue : new ledOnOff(3,'BLUE'),
 green : new ledOnOff(4, 'GREEN'),
 yellow : new ledOnOff(14,'YELLOW'),
 white : new ledOnOff(15,'WHITE'),
+rgb1: function(){ 
+    var _rgb = new ledOnOff.RGB();
+    _rgb.createRGB(26,19,13); 
+    return _rgb;
+}(),
+rgb2: function(){ 
+    var _rgb = new ledOnOff.RGB();  
+    _rgb.createRGB(21,20,16); 
+    return _rgb;
+}(),
 reset: function(){
     this.red.off();
     this.blue.off();
     this.green.off();
     this.yellow.off();
     this.white.off();
+    this.rgb1.off();
+    this.rgb2.off();
 },
 allOn: function(){
     this.red.on();
@@ -22,6 +34,8 @@ allOn: function(){
     this.green.on();
     this.yellow.on();
     this.white.on();
+    this.rgb1.on();
+    this.rgb2.on();
 }
 };
 
@@ -70,12 +84,20 @@ function()
     ledColors[colorArray[currentColour]].blink(2,.1);
     currentColour = currentColour === 4 ? 0 : ++currentColour;
 },2000);
+},
+
+//5 - Random RGB
+function(){
+   return setInterval(function(){
+   ledColors.rgb1.fillRGB(Math.floor(Math.random() * 255),Math.floor(Math.random() * 255),Math.floor(Math.random() * 255));
+   ledColors.rgb2.fillRGB(Math.floor(Math.random() * 255),Math.floor(Math.random() * 255),Math.floor(Math.random() * 255));
+},1000);
 }
 ];
 
 
 //To refresh IP 
-var cordinateUpdateService = 'http://192.168.1.3:1337/update'
+var cordinateUpdateService = 'http://192.168.1.10:1337/update'
 var ListeningPort = 9615;
 var appName = 'trixie';
 var formatedRDnsUrl = cordinateUpdateService + '?app=' + appName + '&port=' + ListeningPort;
@@ -140,12 +162,15 @@ http.createServer(function (request, response) {
     case '/variation/4': 
        currentVariation = variations[3]();
        break;
-    case '/variation/4': 
-       ledColors.allOn();
+    case '/variation/5': 
+       currentVariation = variations[4]();
        break;
      case '/allon': 
        ledColors.allOn();
        break;      
+     case '/reset': 
+       ledColors.reset();
+       break; 
     default :
         response.writeHead(200,{"Content-Type":"application/json"});
         response.end(JSON.stringify({error:true}), 'utf-8');   
