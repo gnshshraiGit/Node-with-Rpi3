@@ -45,7 +45,6 @@ function coresocketcontroller(app, webserver, certObj) {
             var formatedTargetUrl = 'http://' + that.LEDControllers[data.appName].IP + ':' + that.LEDControllers[data.appName].port + '/' + data.LED + '/' + data.state;
             request(formatedTargetUrl, function (error, response, body) {
                 if (!error && response.statusCode == 200) {
-                    console.log('Success: Data = ' + body);
                     that.io.to(data.appName).emit('updateLedStatus', body);
                 }
                 else {
@@ -57,7 +56,17 @@ function coresocketcontroller(app, webserver, certObj) {
             var formatedTargetUrl = 'http://' + that.LEDControllers[data.appName].IP + ':' + that.LEDControllers[data.appName].port + '/variation/' + data.variation;
             request(formatedTargetUrl, function (error, response, body) {
                 if (!error && response.statusCode == 200) {
-                    console.log('Success: Data = ' + body);
+                    that.io.to(data.appName).emit('updateLedStatus', body);
+                }
+                else {
+                    console.log('Failure: Error = ' + error);
+                }
+            });
+        });
+        socket.on('setRGB', function (data) {
+            var formatedTargetUrl = 'http://' + that.LEDControllers[data.appName].IP + ':' + that.LEDControllers[data.appName].port + '/setRGB?RGB=' + data.R+','+data.G+','+data.B;
+            request(formatedTargetUrl, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
                     that.io.to(data.appName).emit('updateLedStatus', body);
                 }
                 else {

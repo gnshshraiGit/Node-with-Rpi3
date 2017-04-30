@@ -8,16 +8,38 @@
 <body>
     <div id="reciever"> </div>
     <br />
-     <a href="#" color="red" id="redLED">Red LED</a><br />
-    <a href="#" color="blue" id="blueLED">blue LED</a><br />
-    <a href="#" color="green" id="greenLED">green LED</a><br />
-    <a href="#" color="yellow" id="yellowLED">yellow LED</a><br />
-    <a href="#" color="white" id="whiteLED">White LED</a><br />
-    <a href="#" val="1" id="ledVariation1">Pattern 1</a><br />
-    <a href="#" val="2" id="ledVariation2">Pattern 2</a><br />
-    <a href="#" val="3" id="ledVariation3">Pattern 3</a><br />
-    <a href="#" val="4" id="ledVariation4">Pattern 4</a><br />
-    <a href="#" val="5" id="ledVariation5">Random RGB</a><br />
+    <div class="btn-toolbar">
+            <div class="btn-group btn-group-justified">
+                <a href="#" color="red" id="redLED" type="button" class="btn btn-danger">Red LED</a>
+                <a href="#" color="blue" id="blueLED" type="button" class="btn btn-primary">Blue LED</a>
+                <a href="#" color="green" id="greenLED" type="button" class="btn btn-success">Green LED</a>
+                <a href="#" color="yellow" id="yellowLED" type="button" class="btn btn-warning">Gellow LED</a>
+                <a href="#" color="white" id="whiteLED" type="button" class="btn btn-default">White LED</a>
+                </div>
+            <div class="btn-group btn-group-justified">
+                <a href="#" val="1" id="ledVariation1" type="button" class="btn btn-info">Pattern 1</a>
+                <a href="#" val="2" id="ledVariation2" type="button" class="btn btn-info">Pattern 2</a>
+                <a href="#" val="3" id="ledVariation3" type="button" class="btn btn-info">Pattern 3</a>
+                <a href="#" val="4" id="ledVariation4" type="button" class="btn btn-info">Pattern 4</a>
+                <a href="#" val="5" id="ledVariation5" type="button" class="btn btn-info">Random RGB</a>
+            </div>
+    </div>
+    <p>
+        <b>R</b> 
+        <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="128"
+                data-slider-id="RC" id="R" data-slider-tooltip="hide" data-slider-handle="round" />
+    </p>
+    <p>
+        <b>G</b> 
+        <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="128" 
+                        data-slider-id="GC" id="G" data-slider-tooltip="hide" data-slider-handle="round" />
+    </p>
+    <p>
+        <b>B</b> 
+        <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="255" data-slider-step="1" data-slider-value="128"
+                         data-slider-id="BC" id="B" data-slider-tooltip="hide" data-slider-handle="round" />
+    </p>
+    <div id="RGB"></div>
         <script>
             insertClient("reciever", "trixie");
         </script>

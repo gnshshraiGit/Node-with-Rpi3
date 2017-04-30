@@ -1,12 +1,13 @@
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.0/css/bootstrap-slider.min.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.8.0/bootstrap-slider.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
 <script src="scripts/lz-string.js"></script>
 <script>
     var socket = io.connect();
-    var currentLEDstate = { 'red': 1, 'blue': 1, 'green': 1, 'yellow': 1, 'white': 1 }; //default values
     function insertStreamer(outerdivid, roomname) {
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
         //absolutely position video on screen
@@ -49,7 +50,7 @@
         setInterval(draw, 500);
 
     }
-
+    var currentLEDstate = { 'red': false, 'green': false, 'blue': false, 'yellow': false, 'white': false };
     function insertClient(outerdivid, roomname) {
         socket.emit('register', { roomname: roomname, peerRole: 'client' });
         //absolutely position video on screen
@@ -59,17 +60,37 @@
             drawto(data.data, ctx);
         })
         socket.on('updateLedStatus', function (data) {
+            data = JSON.parse(data);
             console.log(data);
+            $('#statusTable').find('tbody').html('');
+            $.each(data, function (val,item) {
+                currentLEDstate[val] = item.state;
+            });
         });
         //LED button Controllers
         $("[id$='LED']").click(function () {
             var thisColor = $(this).attr('color');
-            var chngState = currentLEDstate[thisColor] === 1 ? 'off' : 'on';
+            var chngState = currentLEDstate[thisColor] === true ? 'off' : 'on';
             socket.emit('changeLedState', { appName: roomname, LED: thisColor, state: chngState });
         });
         $('[id^=ledVariation]').click(function () {
             var variation = $(this).attr('val');
             socket.emit('changeLedVariation', { appName: roomname, variation: variation });
+        });
+        $(function () {
+            var RGBChange = function () {
+                $('#RGB').css('background', 'rgb(' + r.getValue() + ',' + g.getValue() + ',' + b.getValue() + ')');
+                socket.emit('setRGB', {appName: roomname, R: r.getValue(), B: b.getValue(), G: g.getValue() });
+            };
+            var r = $('#R').slider()
+                    .on('slideStop', RGBChange)
+                    .data('slider');
+            var g = $('#G').slider()
+                    .on('slideStop', RGBChange)
+                    .data('slider');
+            var b = $('#B').slider()
+                    .on('slideStop', RGBChange)
+                    .data('slider');
         });
         //LED button Controllers End
         function drawto(url, ctx) {
@@ -84,3 +105,31 @@
         }
     }
 </script>
+
+<style>
+        #RGB {
+	        height: 20px;
+	        background: rgb(128, 128, 128);
+        }
+        #RC .slider-selection {
+	        background: #FF8282;
+        }
+        #RC .slider-handle {
+	        background: red;
+        }
+        #GC .slider-selection {
+	        background: #428041;
+        }
+        #GC .slider-handle {
+	        background: green;
+        }
+        #BC .slider-selection {
+	        background: #8283FF;
+        }
+        #BC .slider-handle {
+	        border-bottom-color: blue;
+        }
+        #R, #G, #B {
+	        width: 300px;
+        }
+</style>
