@@ -19,6 +19,7 @@ rgb2: function(){
     _rgb.createRGB(21,20,16); 
     return _rgb;
 }(),
+rgbCode:[0,0,0],
 reset: function(){
     this.red.off();
     this.blue.off();
@@ -27,6 +28,7 @@ reset: function(){
     this.white.off();
     this.rgb1.off();
     this.rgb2.off();
+    this.rgbCode=[0,0,0];
 },
 allOn: function(){
     this.red.on();
@@ -36,6 +38,7 @@ allOn: function(){
     this.white.on();
     this.rgb1.on();
     this.rgb2.on();
+    this.rgbCode=[255,255,255];
 }
 };
 
@@ -172,6 +175,7 @@ http.createServer(function (request, response) {
        });
        ledColors.rgb1.fillRGB(rgbCode[0],rgbCode[1],rgbCode[2]);
        ledColors.rgb2.fillRGB(rgbCode[0],rgbCode[1],rgbCode[2]);
+       ledColors.rgbCode = rgbCode;
        break;
      case '/allon': 
        ledColors.allOn();
