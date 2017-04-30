@@ -97,7 +97,7 @@ function(){
 
 
 //To refresh IP 
-var cordinateUpdateService = 'http://192.168.1.10:1337/update'
+var cordinateUpdateService = 'http://192.168.1.100:1337/update'
 var ListeningPort = 9615;
 var appName = 'trixie';
 var formatedRDnsUrl = cordinateUpdateService + '?app=' + appName + '&port=' + ListeningPort;
@@ -118,7 +118,7 @@ http.createServer(function (request, response) {
    var requestUrl = url.parse(request.url);
    if(currentVariation) {clearTimeout(currentVariation);}
    ledColors.reset();
-   switch(requestUrl.path.toLowerCase())
+   switch(requestUrl.pathname.toLowerCase())
    {
     case '/red/on': 
        ledColors.red.on();
@@ -136,19 +136,19 @@ http.createServer(function (request, response) {
        ledColors.yellow.on();
        break;
        case '/red/off': 
-       ledColors.red.on();
+       ledColors.red.off();
        break;
     case '/white/off': 
-       ledColors.white.on();
+       ledColors.white.off();
        break;
     case '/blue/off': 
-       ledColors.blue.on();
+       ledColors.blue.off();
        break;
     case '/green/off': 
-       ledColors.green.on();
+       ledColors.green.off();
        break;
     case '/yellow/off': 
-       ledColors.yellow.on();
+       ledColors.yellow.off();
        break;
     case '/variation/1': 
        currentVariation = variations[0]();
@@ -164,6 +164,14 @@ http.createServer(function (request, response) {
        break;
     case '/variation/5': 
        currentVariation = variations[4]();
+       break;
+    case '/setrgb':
+       var rgbCode = requestUrl.query.split('=')[1].split(',');
+       rgbCode.forEach(function(val,indx){
+            rgbCode[indx] = parseInt(val);
+       });
+       ledColors.rgb1.fillRGB(rgbCode[0],rgbCode[1],rgbCode[2]);
+       ledColors.rgb2.fillRGB(rgbCode[0],rgbCode[1],rgbCode[2]);
        break;
      case '/allon': 
        ledColors.allOn();
